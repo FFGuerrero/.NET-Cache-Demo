@@ -1,5 +1,7 @@
 ﻿using CacheDemo.Data.Repositories;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
 
 namespace CacheDemo.Benchmark.Benchmarks
 {
@@ -8,8 +10,10 @@ namespace CacheDemo.Benchmark.Benchmarks
         protected readonly UserRepository Repository;
         public Benchmark()
         {
-            IMemoryCache cache = new MemoryCache(new MemoryCacheOptions());
-            Repository = new UserRepository(cache);
+            IMemoryCache memoryCache = new MemoryCache(new MemoryCacheOptions());
+            IDistributedCache redisCache = new RedisCache(new RedisCacheOptions() { InstanceName = "RedisDemo_", Configuration = "localhost:5002" });
+
+            Repository = new UserRepository(memoryCache, redisCache);
         }
     }
 }

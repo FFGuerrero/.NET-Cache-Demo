@@ -6,6 +6,7 @@ namespace CacheDemo.Data.Repositories
     {
         List<User> GetUsers();
         Task<List<User>> GetUsersAsync();
-        Task<List<User>> GetUsersCachedAsync();
+        Task<List<User>> GetUsersMemoryCachedAsync();
+        Task<List<User>> GetUsersRedisCachedAsync();
     }
 }

@@ -19,9 +19,21 @@ namespace CacheDemo.Controllers
         /// </summary>
         // GET api/users
         [HttpGet]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetUsersWithMemoryCache()
         {
-            var values = await _userRepository.GetUsersCachedAsync();
+            var values = await _userRepository.GetUsersMemoryCachedAsync();
+            return Ok(values);
+        }
+
+        /// <summary>
+        /// Get all users.
+        /// </summary>
+        // GET api/users
+        [HttpGet]
+        [Route("redis")]
+        public async Task<IActionResult> GetUsersWithRedisCache()
+        {
+            var values = await _userRepository.GetUsersRedisCachedAsync();
             return Ok(values);
         }
     }

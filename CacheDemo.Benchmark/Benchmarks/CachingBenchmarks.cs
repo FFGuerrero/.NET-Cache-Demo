@@ -1,8 +1,11 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Order;
 using CacheDemo.Data.Models;
 
 namespace CacheDemo.Benchmark.Benchmarks
 {
+    [RankColumn]
+    [Orderer(SummaryOrderPolicy.FastestToSlowest)]
     [MemoryDiagnoser]
     public class CachingBenchmarks : Benchmark
     {
@@ -12,16 +15,22 @@ namespace CacheDemo.Benchmark.Benchmarks
             return Repository.GetUsers();
         }
 
-        [Benchmark(Baseline = true)]
+        [Benchmark]
         public async Task<List<User>> WithoutCachingWithAsync()
         {
             return await Repository.GetUsersAsync();
         }
 
         [Benchmark]
-        public async Task<List<User>> WithCachingWithAsync()
+        public async Task<List<User>> WithMemoryCachingAsync()
         {
-            return await Repository.GetUsersCachedAsync();
+            return await Repository.GetUsersMemoryCachedAsync();
+        }
+
+        [Benchmark]
+        public async Task<List<User>> WithRedisCachingAsync()
+        {
+            return await Repository.GetUsersRedisCachedAsync();
         }
     }
 }
