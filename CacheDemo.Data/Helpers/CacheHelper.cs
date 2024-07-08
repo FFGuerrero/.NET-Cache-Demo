@@ -11,10 +11,11 @@ namespace CacheDemo.Data.Helpers
                                                    TimeSpan? absoluteExpireTime = null,
                                                    TimeSpan? slidingExpireTime = null)
         {
-            var options = new DistributedCacheEntryOptions();
-
-            options.AbsoluteExpirationRelativeToNow = absoluteExpireTime ?? TimeSpan.FromMinutes(1);
-            options.SlidingExpiration = slidingExpireTime ?? TimeSpan.FromMinutes(1);
+            var options = new DistributedCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = absoluteExpireTime ?? TimeSpan.FromMinutes(1),
+                SlidingExpiration = slidingExpireTime ?? TimeSpan.FromMinutes(1)
+            };
 
             var jsonData = JsonSerializer.Serialize(data);
             await cache.SetStringAsync(recordId, jsonData, options);

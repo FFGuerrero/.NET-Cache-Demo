@@ -11,7 +11,7 @@ namespace CacheDemo.Benchmark.Benchmarks
         public Benchmark()
         {
             IMemoryCache memoryCache = new MemoryCache(new MemoryCacheOptions());
-            IDistributedCache redisCache = new RedisCache(new RedisCacheOptions() { InstanceName = "RedisDemo_", Configuration = "localhost:5002" });
+            IDistributedCache redisCache = new RedisCache(new RedisCacheOptions() { InstanceName = "RedisDemo_", Configuration = "localhost:6379" });
 
             Repository = new UserRepository(memoryCache, redisCache);
         }

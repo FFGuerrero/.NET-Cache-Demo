@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheDemo.Data", "CacheDemo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheDemo.Benchmark", "CacheDemo.Benchmark\CacheDemo.Benchmark.csproj", "{1F715276-5074-444A-B412-5DE3E57C5CB3}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1AA716F1-27E3-4FF6-B52B-60B8F7FAF481}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{1F715276-5074-444A-B412-5DE3E57C5CB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F715276-5074-444A-B412-5DE3E57C5CB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F715276-5074-444A-B412-5DE3E57C5CB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AA716F1-27E3-4FF6-B52B-60B8F7FAF481}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AA716F1-27E3-4FF6-B52B-60B8F7FAF481}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AA716F1-27E3-4FF6-B52B-60B8F7FAF481}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AA716F1-27E3-4FF6-B52B-60B8F7FAF481}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

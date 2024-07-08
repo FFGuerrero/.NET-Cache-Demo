@@ -28,7 +28,7 @@ namespace CacheDemo.Benchmark.Benchmarks
         }
 
         [Benchmark]
-        public async Task<List<User>> WithRedisCachingAsync()
+        public async Task<List<User>> WithLocalRedisCachingAsync()
         {
             return await Repository.GetUsersRedisCachedAsync();
         }

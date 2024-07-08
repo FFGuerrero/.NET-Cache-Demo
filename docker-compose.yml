@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  cachedemo:
+    build:
+      context: .
+      dockerfile: CacheDemo/Dockerfile
+    depends_on:
+      - redis
+    container_name: cachedemo_api
+    ports:
+      - '8081:443'
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass MyRedisApplaudoSecurePassword
+    container_name: redis_server
+    environment:
+      REDIS_PASSWORD: MyRedisApplaudoSecurePassword
