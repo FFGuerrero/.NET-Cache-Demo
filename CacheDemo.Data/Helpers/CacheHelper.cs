@@ -9,7 +9,8 @@ namespace CacheDemo.Data.Helpers
                                                    string recordId,
                                                    T data,
                                                    TimeSpan? absoluteExpireTime = null,
-                                                   TimeSpan? slidingExpireTime = null)
+                                                   TimeSpan? slidingExpireTime = null,
+                                                   CancellationToken cancellationToken = default)
         {
             var options = new DistributedCacheEntryOptions
             {
@@ -18,13 +19,14 @@ namespace CacheDemo.Data.Helpers
             };
 
             var jsonData = JsonSerializer.Serialize(data);
-            await cache.SetStringAsync(recordId, jsonData, options);
+            await cache.SetStringAsync(recordId, jsonData, options, cancellationToken);
         }
 
         public static async Task<T?> GetRecordAsync<T>(this IDistributedCache cache,
-                                                       string recordId)
+                                                       string recordId,
+                                                       CancellationToken cancellationToken)
         {
-            var jsonData = await cache.GetStringAsync(recordId);
+            var jsonData = await cache.GetStringAsync(recordId, cancellationToken);
 
             if (jsonData is null)
             {

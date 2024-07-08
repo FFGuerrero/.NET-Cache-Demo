@@ -18,19 +18,19 @@ namespace CacheDemo.Benchmark.Benchmarks
         [Benchmark]
         public async Task<List<User>> WithoutCachingWithAsync()
         {
-            return await Repository.GetUsersAsync();
+            return await Repository.GetUsersAsync(CancellationToken.None);
         }
 
         [Benchmark]
         public async Task<List<User>> WithMemoryCachingAsync()
         {
-            return await Repository.GetUsersMemoryCachedAsync();
+            return await Repository.GetUsersMemoryCachedAsync(CancellationToken.None);
         }
 
         [Benchmark]
         public async Task<List<User>> WithLocalRedisCachingAsync()
         {
-            return await Repository.GetUsersRedisCachedAsync();
+            return await Repository.GetUsersRedisCachedAsync(CancellationToken.None);
         }
     }
 }

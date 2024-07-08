@@ -1,19 +1,40 @@
 ﻿using CacheDemo.Data.Repositories;
-using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Caching.StackExchangeRedis;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace CacheDemo.Benchmark.Benchmarks
 {
     public class Benchmark
     {
-        protected readonly UserRepository Repository;
+        protected readonly IUserRepository Repository;
         public Benchmark()
         {
-            IMemoryCache memoryCache = new MemoryCache(new MemoryCacheOptions());
-            IDistributedCache redisCache = new RedisCache(new RedisCacheOptions() { InstanceName = "RedisDemo_", Configuration = "redis:6379,password=MyRedisApplaudoSecurePassword" });
+            var builder = Host.CreateDefaultBuilder()
+                .ConfigureHostConfiguration(ConfigureHostConfiguration)
+                .ConfigureServices(ConfigureServices)
+            .Build();
 
-            Repository = new UserRepository(memoryCache, redisCache);
+            var serviceProvider = builder.Services.GetRequiredService<IServiceProvider>();
+            using IServiceScope scope = serviceProvider.CreateScope();
+            Repository = scope.ServiceProvider.GetRequiredService<IUserRepository>();
+        }
+
+        void ConfigureHostConfiguration(IConfigurationBuilder configurationBuilder)
+        {
+            configurationBuilder.AddJsonFile("appsettings.json")
+                                .AddEnvironmentVariables();
+        }
+
+        void ConfigureServices(HostBuilderContext hostBuilderContext, IServiceCollection services)
+        {
+            services.AddMemoryCache();
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = "redis:6379,password=MyRedisSecurePassword,abortConnect=false,allowAdmin=true,ssl=true";
+                options.InstanceName = "RedisDemo_";
+            });
+            services.AddScoped<IUserRepository, UserRepository>();
         }
     }
 }

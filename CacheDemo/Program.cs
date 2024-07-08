@@ -14,6 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.Decorate<IUserRepository, CachedUserRepository>();
 builder.Services.AddStackExchangeRedisCache(options => {
     options.Configuration = builder.Configuration.GetConnectionString("Redis");
     options.InstanceName = "RedisDemo_";

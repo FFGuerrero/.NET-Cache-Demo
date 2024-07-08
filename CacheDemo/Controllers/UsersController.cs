@@ -19,9 +19,9 @@ namespace CacheDemo.Controllers
         /// </summary>
         // GET api/users
         [HttpGet]
-        public async Task<IActionResult> GetUsersWithMemoryCache()
+        public async Task<IActionResult> GetUsersWithMemoryCache(CancellationToken cancellationToken)
         {
-            var values = await _userRepository.GetUsersMemoryCachedAsync();
+            var values = await _userRepository.GetUsersMemoryCachedAsync(cancellationToken);
             return Ok(values);
         }
 
@@ -31,9 +31,9 @@ namespace CacheDemo.Controllers
         // GET api/users
         [HttpGet]
         [Route("redis")]
-        public async Task<IActionResult> GetUsersWithRedisCache()
+        public async Task<IActionResult> GetUsersWithRedisCache(CancellationToken cancellationToken)
         {
-            var values = await _userRepository.GetUsersRedisCachedAsync();
+            var values = await _userRepository.GetUsersRedisCachedAsync(cancellationToken);
             return Ok(values);
         }
     }
